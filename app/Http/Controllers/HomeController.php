@@ -27,8 +27,7 @@ class HomeController extends Controller
     	$dest=$request->dest;
     	$this->DFS($src,$dest,$adj);
     	ksort($this->paths);
-    //	return $this->total;
-    	return json_encode($this->paths);
+    	return json_encode(["paths"=>$this->paths,"adj"=>$adj]);
     }
 
     public $paths = array();

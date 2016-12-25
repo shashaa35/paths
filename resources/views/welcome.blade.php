@@ -1,45 +1,38 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('content')
+ <select id="src" class="title">
+ 	@foreach($nodes as $node)
+ 		<option value="{{$node}}">{{$node}}</option>
+ 	@endforeach
+ </select>
+ <select id="dest" class="title">
+ 	@foreach($nodes as $node)
+ 		<option value="{{$node}}">{{$node}}</option>
+ 	@endforeach
+ </select>
+ <button id="btn" >Check Paths.. </button>
+@endsection
 
-        <style>
-            html, body {
-                height: 100%;
-            }
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
-        </div>
-    </body>
-</html>
+@section('js')
+<script type="text/javascript">
+$('#btn').click(function(){
+	$.ajax({
+			type: 'get',
+			headers: {
+       			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    		},
+    		url: '/check_paths',
+    		data: {
+    			'src':$("#src").val(),
+    			'dest':$("#dest").val(),
+    		},
+    		success: function(data){
+    			alert(data);
+    			alert("done")
+    		}
+		});
+})
+</script>
+@endsection('js')

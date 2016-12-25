@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',  [ 'middleware'=>'web','uses'=>'HomeController@index']);
+Route::get('/check_paths',  [ 'middleware'=>'web','uses'=>'HomeController@check_paths']);
